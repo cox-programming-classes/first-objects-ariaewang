@@ -4,10 +4,12 @@ using Card = FirstObjects_2024.Card;
 Console.WriteLine("Let's Play Cards!");
 // create a new Deck!
 Deck deck = new();
+deck.Shuffle();
 foreach (var card in deck)
 {
     Console.WriteLine(card);
 }
+
 //Card card = new (Suit.Spades, Value.AceHigh);
 //Console.WriteLine($"Check out that {card}!");
 

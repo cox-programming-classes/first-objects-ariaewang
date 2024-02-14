@@ -78,12 +78,39 @@ public class Deck : IEnumerable<Card>
    {
        
    }
+
+   //split the deck
+   private (List<Card>, List<Card>) Split()
+   {
+       var pile1 = new List<Card>();
+       var pile2 = new List<Card>();
+       var count = _cards.Count;
+       for (int i = 0; i < count; i++)
+       {
+           if (i % 2 == 0)
+           {
+               pile1.Add(_cards[0]);
+               _cards.RemoveAt(0);
+           }
+           else
+           {
+               pile2.Add(_cards[0]);
+               _cards.RemoveAt(0);
+           }
+       }
+
+       return (pile1, pile2);
+   }
    
+
    /// <summary>
    /// Shuffle the Deck of Cards
    /// TODO: Describe your Algorithm Here.
    /// </summary>
-   public void Shuffle(){}
+   public void Shuffle()
+   {
+       IEnumerable<Card> deck2 = _cards;
+   }
    
    #region Enumerable stuff!
    public IEnumerator<Card> GetEnumerator()
