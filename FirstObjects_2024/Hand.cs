@@ -1,6 +1,8 @@
+using System.Collections;
+
 namespace FirstObjects_2024;
 
-public class Hand //: IEnumerable<Card> ***UNCOMMENT THIS OUT***
+public class Hand:IEnumerable<Card>
 {
    private List<Card> _cards;
    private static Random rand = new();
@@ -30,7 +32,28 @@ public class Hand //: IEnumerable<Card> ***UNCOMMENT THIS OUT***
       return card;
    }
 
-   public bool Has(Suit)
+   public bool Has(Suit s) => _cards.Any(card => card.Suit == s);
+   public bool Has(Value s) => _cards.Any(card => card.Value == s);
+   public bool Has(Card s) => _cards.Any(card => card == s);
 
+   public IEnumerator<Card> GetEnumerator()
+   {
+      return _cards.GetEnumerator();
+   }
 
+   /// <summary>
+   /// Get a String representation of this Hand of Cards.
+   /// Gets each card as a string,
+   /// Then combines them into a Comma Separated list
+   /// </summary>
+   /// <returns></returns>
+   public override string ToString() =>
+      _cards
+         .Select(card => $"{card}") 
+         .Aggregate((a , b) => $"{a}, {b}");
+
+   IEnumerator IEnumerable.GetEnumerator()
+   {
+      return ((IEnumerable)_cards).GetEnumerator();
+   }
 }
