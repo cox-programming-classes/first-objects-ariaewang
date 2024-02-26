@@ -72,7 +72,7 @@ while (!player.DidStand)
     }
     
     Console.WriteLine($"Player: {player}");
-    Console.Writeline($"Dealer: {dealer}");
+    Console.WriteLine($"Dealer: {dealer}");
 
     // TODO: How do you decide who Wins?
     // // Or does anyone win?
