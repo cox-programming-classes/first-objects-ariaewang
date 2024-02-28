@@ -23,8 +23,25 @@ public class Player
         get
         {
             var total = 0;
-            foreach (var card in _hand)
-                total += card.Value;
+            var sorted = _hand.OrderBy(card => (int) card.Value);
+            foreach (var card in sorted)
+            {
+                if (card.Value == Value.Jack ||
+                    card.Value == Value.Queen ||
+                    card.Value == Value.King)
+                    total += 10;
+                else if (card.Value == Value.AceLow ||
+                         card.Value == Value.AceHigh)
+                {
+                    total += 11;
+                    if (total > 21)
+                        total -= 10;
+                }
+                else
+                {
+                    total += card.Value;
+                }
+            }
             
             // TODO: What happens if there's an Ace and you want to value it at 11?
             // How would you decide when that is the right choice?
@@ -60,6 +77,9 @@ public class Player
     /// <returns></returns>
     public override string ToString() => $"{_hand} => {Score}";
 
+    
+    
+    
     /*
     private Hand _hand;
 

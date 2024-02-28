@@ -50,6 +50,8 @@ public class Deck : IEnumerable<Card>
            yield return DealOne();
    }
 
+   private static readonly Random RNG = new();
+  
    /// <summary>
    /// Insert a single card at the Bottom of the deck
    /// </summary>
@@ -67,17 +69,13 @@ public class Deck : IEnumerable<Card>
    /// insert the card randomly into the current list of Cards
    /// </summary>
    /// <param name="card">the card to be inserted.</param>
-   public void InsertRandomly(Card card) => _cards.Insert(0,card);
+   //public void InsertRandomly(Card card) => _cards.Insert(0,card);
 
    /// <summary>
    /// Using Random Number Generator,
    /// insert EACH card from this collection randomly into the deck.
    /// </summary>
    /// <param name="cards">the cards to be inserted.</param>
-   public void InsertRandomly(IEnumerable<Card> cards)
-   {
-       
-   }
 
    //split the deck
    private (List<Card>, List<Card>) Split()
@@ -101,7 +99,20 @@ public class Deck : IEnumerable<Card>
 
        return (pile1, pile2);
    }
+
+   public void InsertRandomly(Card card)
+   {
+       var n = RNG.Next(_cards.Count);
+       _cards.Insert(n, card);
+   }
    
+   public void InsertRandomly(IEnumerable<Card> cards)
+   {
+       foreach (var card in cards)
+       {
+           InsertRandomly(card);
+       }
+   }
 
    /// <summary>
    /// Shuffle the Deck of Cards
@@ -109,7 +120,11 @@ public class Deck : IEnumerable<Card>
    /// </summary>
    public void Shuffle()
    {
-       IEnumerable<Card> deck2 = _cards;
+       //IEnumerable<Card> deck2 = _cards;
+       var (pile1, pile2) = Split();
+       InsertRandomly(pile1);
+       InsertRandomly(pile2);
+       
    }
    
    #region Enumerable stuff!
